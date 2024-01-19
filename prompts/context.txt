@@ -1,0 +1,80 @@
+10 Academy Cohort A
+Weekly Challenge: Week 6
+Precision RAG: Prompt Tuning For
+Building Enterprise Grade RAG
+Systems
+Business objective
+PromptlyTech is an innovative e-business specializing in providing AI-driven solutions for
+optimizing the use of Language Models (LLMs) in various industries. The company aims
+to revolutionize how businesses interact with LLMs, making the technology more
+accessible, efficient, and effective. By addressing the challenges of prompt engineering,
+the company plays a pivotal role in enhancing decision-making, operational efficiency,
+and customer experience across various industries. PromptlyTech's solutions are
+designed to cater to the evolving needs of a digitally-driven business landscape, where
+speed and accuracy are key to staying competitive.
+The company focuses on key services: Automatic Prompt Generation, Automatic
+Evaluation Data Generation, and Prompt Testing and Ranking.
+1. Automatic Prompt Generation Service:
+●
+This service streamlines the process of creating effective prompts, enabling
+businesses to efficiently utilize LLMs for generating high-quality, relevant content.
+It significantly reduces the time and expertise required in crafting prompts
+manually.
+2. Automatic Evaluation Data Generation Service:●
+PromptlyTech’s service automates the generation of diverse test cases, ensuring
+comprehensive coverage and identifying potential issues. This enhances the
+reliability and performance of LLM applications, saving significant time in the
+QA(Quality Assurance) process.
+3. Prompt Testing and Ranking Service:
+●
+PromptlyTech’s service evaluates and ranks different prompts based on
+effectiveness, helping Users to get the desired outcome from LLM. It ensures that
+chatbots and virtual assistants provide accurate, contextually relevant responses,
+thereby improving user engagement and satisfaction.
+Background Context
+In the evolving field of artificial intelligence, Language Models (LLMs) like GPT-3.5 and
+GPT-4 have become crucial for various applications. Their effectiveness, however, heavily
+depends on the quality of the prompts they receive, leading to the emergence of
+"prompt engineering" as a key skill.
+Prompt engineering is the craft of designing queries or statements to guide LLMs to
+produce desired outcomes. The challenge lies in the sensitivity of these models to
+prompt nuances, where slight variations can yield vastly different results. This poses a
+significant hurdle for users, especially in business contexts where accuracy and
+relevance are paramount.
+The need for simplified, efficient prompt engineering is clear. Automating and optimizing
+this process can save time, enhance LLM productivity, and make advanced AI
+capabilities more accessible to a broader range of users. The tasks of Automatic Prompt
+Generation, Evaluation Data Generation, and Prompt Testing and Ranking are aimed at
+addressing these challenges, streamlining the prompt engineering process for more
+effective use of LLMs.
+Learning Outcomes
+Skills Development
+● Prompt Engineering Proficiency: Gain expertise in crafting effective prompts that
+guide LLMs to desired outputs, understanding nuances and variations in
+language that impact model responses.
+● Critical Analysis: Develop the ability to critically analyze and evaluate the
+effectiveness of different prompts based on their performance in varied scenarios.
+● Technical Aptitude with LLMs: Enhance technical skills in using advanced
+language models like GPT-4 and GPT-3.5-Turbo, understanding their
+functionalities and capabilities.
+● Problem-Solving and Creativity: Cultivate creative problem-solving skills by
+generating innovative prompts and test cases, addressing complex and varied
+objectives.●
+Data Interpretation: Learn to interpret and analyze data from test cases and
+prompt evaluations, deriving meaningful insights from performance metrics.
+Knowledge Acquisition
+● Understanding of Language Models: Acquire a deeper understanding of how
+LLMs function, including their strengths, limitations, and the principles behind
+their responses.
+● Insights into Automated Evaluation Data Generation: Gain knowledge about the
+methodology and importance of creating test cases for evaluating prompt
+effectiveness.
+● ELO Rating System and its Applications: Learn about the ELO rating system used
+for ranking prompts, understanding its mechanics and relevance in performance
+evaluation.
+● Prompt Optimization Strategies: Understand various strategies for refining and
+optimizing prompts to achieve better alignment with specific goals and desired
+outcomes.
+● Industry Best Practices: Familiarize with the best practices in prompt engineering
+within different industries, learning about real-world applications and challenges.
+
