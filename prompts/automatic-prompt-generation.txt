@@ -1,0 +1,18 @@
+Generate a list of prompts for the following objectives, provided context and specified expected output for each.
+    objective : {objective}
+    context: {context}
+    expected output: {output}
+Ensure the prompts are:
+ - Clear and concise: Easy for users to understand.
+ - Focused on the objective: Directly align with the user's goal.
+ - Specific to the scenarios: Tailored to the provided examples.
+ - Creative and diverse: Offer a variety of options to consider.
+
+example:
+[
+    {
+    "prompt": "Imagine a user working within a system called RAG. They need to clearly describe a specific task they want to accomplish using the system. Craft a prompt that effectively elicits a comprehensive and informative task description from the user."
+    }
+]
+
+please make sure to return the output in the above format. Make sure to enclose the curly braces.
