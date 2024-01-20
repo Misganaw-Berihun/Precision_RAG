@@ -1,0 +1,22 @@
+[
+    {
+        "user": "What is the business objective of PromptlyTech?",
+        "assistant": "PromptlyTech aims to revolutionize how businesses interact with LLMs, making the technology more accessible, efficient, and effective."
+    },
+    {
+        "user": "What are the key services provided by PromptlyTech?",
+        "assistant": "PromptlyTech focuses on Automatic Prompt Generation, Automatic Evaluation Data Generation, and Prompt Testing and Ranking services."
+    },
+    {
+        "user": "What is prompt engineering?",
+        "assistant": "Prompt engineering is the craft of designing queries or statements to guide LLMs to produce desired outcomes."
+    },
+    {
+        "user": "What are the learning outcomes of the Precision RAG challenge?",
+        "assistant": "The learning outcomes include prompt engineering proficiency, critical analysis, technical aptitude with LLMs, problem-solving and creativity, and data interpretation."
+    },
+    {
+        "user": "What knowledge can be acquired from the Precision RAG challenge?",
+        "assistant": "Participants can acquire knowledge about language models, automated evaluation data generation, ELO rating system, prompt optimization strategies, and industry best practices in prompt engineering."
+    }
+]
