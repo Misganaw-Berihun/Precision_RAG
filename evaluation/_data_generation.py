@@ -62,7 +62,7 @@ def file_reader(path: str, ) -> str:
 def generate_test_data(prompt: str, context: str, num_test_output: str) -> str:
     """Return the classification of the hallucination.
     @parameter prompt: the prompt to be completed.
-    @parameter user_message: the user message to be classified.
+    @parameter num_test_output: the number of tests to generate.
     @parameter context: the context of the user message.
     @returns classification: the classification of the hallucination.
     """
