@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Button,
@@ -7,121 +7,140 @@ import {
   Paper,
   Container,
   Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
 } from "@material-ui/core";
 
 const App = () => {
-  const [description, setDescription] = useState("");
-  const [scenarios, setScenarios] = useState([]);
+  const [objective, setObjective] = useState([]);
   const [expectedOutputs, setExpectedOutputs] = useState([]);
   const [generatedPrompts, setGeneratedPrompts] = useState([]);
-  const [evaluationData, setEvaluationData] = useState([]);
+  const [file, setFile] = useState(null);
 
   const generatePrompts = async () => {
     try {
+      const formData = new FormData();
+      formData.append("objectives", JSON.stringify(objective));
+      formData.append("expectedOutputs", JSON.stringify(expectedOutputs));
+      formData.append("file", file);
+
       const response = await axios.post(
-        "http://127.0.0.1:8000/generate_prompts",
+        "http://localhost:5000/api/generate_prompts",
+        formData,
         {
-          description,
-          scenarios,
-          expectedOutputs,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
       );
-      setGeneratedPrompts(response.data.prompts);
+
+      // Assuming the response contains an array of objects with prompt and score
+      setGeneratedPrompts(response.data);
     } catch (error) {
       console.error("Error generating prompts:", error);
     }
   };
 
-  const generateEvaluationData = async () => {
+  const fetchPrompts = async () => {
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:8000/generate_evaluation_data",
-        {
-          description,
-          scenarios,
-          expectedOutputs,
-        }
-      );
-      setEvaluationData(response.data.evaluation_data);
+      const response = await axios.get("http://localhost:5000/api/prompts");
+      setGeneratedPrompts(response.data.prompts);
     } catch (error) {
-      console.error("Error generating evaluation data:", error);
+      console.error("Error fetching prompts:", error);
     }
   };
 
+  // Use useEffect to fetch prompts when the component mounts
+  useEffect(() => {
+    fetchPrompts();
+  }, []);
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
   return (
-    <Container component="main" maxWidth="md">
-      <Paper elevation={3} style={{ padding: 20, marginTop: 50 }}>
-        <Typography variant="h4" align="center" gutterBottom>
-          Prompt Generation System
-        </Typography>
-
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              fullWidth
-              label="Description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              variant="outlined"
-              fullWidth
-              label="Scenario"
-              value={scenarios[0] || ""}
-              onChange={(e) => setScenarios([e.target.value])}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              variant="outlined"
-              fullWidth
-              label="Expected Output"
-              value={expectedOutputs[0] || ""}
-              onChange={(e) => setExpectedOutputs([e.target.value])}
-            />
-          </Grid>
-        </Grid>
-
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={generatePrompts}
-          style={{ marginTop: 20 }}
-        >
-          Generate Prompts
-        </Button>
-
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={generateEvaluationData}
-          style={{ marginTop: 20, marginLeft: 10 }}
-        >
-          Generate Evaluation Data
-        </Button>
-
-        <Typography variant="h5" align="center" style={{ marginTop: 30 }}>
-          Generated Prompts:
-        </Typography>
-        {generatedPrompts.map((prompt, index) => (
-          <Typography key={index} variant="body1">
-            {prompt}
+    <div>
+      <Container component="main" maxWidth="md">
+        <Paper elevation={3} style={{ padding: 20, marginTop: 50 }}>
+          <Typography variant="h4" align="center" gutterBottom>
+            Prompt Generation System
           </Typography>
-        ))}
 
-        <Typography variant="h5" align="center" style={{ marginTop: 30 }}>
-          Evaluation Data:
-        </Typography>
-        {evaluationData.map((data, index) => (
-          <Typography key={index} variant="body1">
-            Prompt: {data.prompt}, Score: {data.evaluation_score}
-          </Typography>
-        ))}
-      </Paper>
-    </Container>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <TextField
+                variant="outlined"
+                fullWidth
+                label="Objective"
+                value={objective[0] || ""}
+                onChange={(e) => setObjective([e.target.value])}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                variant="outlined"
+                fullWidth
+                label="Expected Output"
+                value={expectedOutputs[0] || ""}
+                onChange={(e) => setExpectedOutputs([e.target.value])}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <input type="file" onChange={handleFileChange} />
+            </Grid>
+          </Grid>
+
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={generatePrompts}
+            style={{ marginTop: 20 }}
+          >
+            Generate Prompts
+          </Button>
+
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={fetchPrompts}
+            style={{ marginLeft: 10, marginTop: 20 }}
+          >
+            Fetch Prompts
+          </Button>
+
+          {generatedPrompts.length > 0 && (
+            <>
+              <Typography variant="h5" align="center" style={{ marginTop: 30 }}>
+                Generated Prompts:
+              </Typography>
+              <TableContainer component={Paper} style={{ marginTop: 10 }}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell style={{ width: "85%" }}>Prompt</TableCell>
+                      <TableCell style={{ width: "15%" }}>Score (%)</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {generatedPrompts.map((prompt, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{prompt}</TableCell>
+                        <TableCell>{70}%</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </>
+          )}
+        </Paper>
+      </Container>
+    </div>
   );
 };
 
