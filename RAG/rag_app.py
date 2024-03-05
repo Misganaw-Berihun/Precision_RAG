@@ -12,7 +12,6 @@ from llama_index.embeddings.openai import OpenAIEmbedding
 
 openai_key = get_env_manager()['openai_keys']['OPENAI_API_KEY']
 
-
 def read_data(file_path):
     documents = SimpleDirectoryReader(file_path).load_data()
     return documents
@@ -30,22 +29,16 @@ def get_vector_index(documents):
     index = VectorStoreIndex.from_documents(
         documents, storage_context=storage_context,
         )
-    
-    return index 
+
+    return index
+
+def get_context_from_db(question, index):
+    retriever = index.as_retriever(similarity_top_k=5)
+    nodes = retriever.retrieve(question)
+    return nodes
+
 
 def get_response(question, index):
     query_engine = index.as_query_engine(similarity_top_k=5)
     response = query_engine.query(question)
     return str(response)
-
-
-
-def main():
-    file_path = '../data'
-    documents = read_data(file_path)
-    index = get_vector_index(documents)
-    question = 'write the list of tasks of the week?'
-    response = get_response(question, index)
-    print(response) 
-
-main()

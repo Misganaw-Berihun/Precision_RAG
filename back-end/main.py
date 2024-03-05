@@ -10,8 +10,9 @@ if rpath not in sys.path:
 from utility.document_reader import load_document
 from utility.read_file import file_reader, json_parser
 from prompt_reranking.elo_rating import calculate_elo
+from evaluation._data_generation import generate_the_prompts, save_json
 
-from RAG.rag_app import get_vector_index, get_response
+from RAG.rag_app import get_vector_index, get_response, get_context_from_db, read_data
 
 app = Flask(__name__)
 CORS(app)
@@ -23,18 +24,29 @@ def generate_prompts():
         expected_outputs = request.form.getlist('expectedOutputs') 
         temp_dir = tempfile.TemporaryDirectory()
 
-        docs = []
-        for file_key in request.files:
-            uploaded_file = request.files[file_key]
-            temp_filepath = os.path.join(temp_dir.name, uploaded_file.filename)
-            uploaded_file.save(temp_filepath)
-            docs.extend(load_document(temp_filepath))
-
+        # docs = []
+        # for file_key in request.files:
+        #     uploaded_file = request.files[file_key]
+        #     temp_filepath = os.path.join(temp_dir.name, uploaded_file.filename)
+        #     uploaded_file.save(temp_filepath)
+        #     docs.extend(load_document(temp_filepath))
+        # print(docs)
+        path = '../data'
+        docs = read_data(path)
+        print(objectives[0], expected_outputs[0])
         index = get_vector_index(docs)
-        question = 'write the list of tasks of the week?'
-        response = get_response(question, index)
-        print(response)
-        return jsonify(response_data)
+        contexts = get_context_from_db(objectives[0], index)
+        
+        sequence = [context.get_text() for context in contexts]
+        context = ' '.join(sequence)
+
+        prompt = file_reader('../prompts/automatic-prompt-generation.txt')
+        prompt = str(prompt) 
+        prompts = generate_the_prompts(prompt, context, objectives[0], expected_outputs[0])
+
+        file_path = "../prompts-generated/prompts.json"
+        save_json(prompts, file_path)
+        return jsonify({"msg": "prompts created succesfully"})
 
     except Exception as e:
         print("Error generating prompts:", str(e))
