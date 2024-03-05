@@ -16,30 +16,23 @@ import {
 } from "@material-ui/core";
 
 const App = () => {
-  const [objective, setObjective] = useState([]);
-  const [expectedOutputs, setExpectedOutputs] = useState([]);
+  const [objective, setObjective] = useState("");
+  const [expectedOutputs, setExpectedOutputs] = useState("");
   const [generatedPrompts, setGeneratedPrompts] = useState([]);
   const [file, setFile] = useState(null);
 
   const generatePrompts = async () => {
     try {
       const formData = new FormData();
-      formData.append("objectives", JSON.stringify(objective));
-      formData.append("expectedOutputs", JSON.stringify(expectedOutputs));
+      formData.append("objectives", objective);
+      formData.append("expectedOutputs", expectedOutputs);
       formData.append("file", file);
 
-      const response = await axios.post(
-        "http://localhost:5000/api/generate_prompts",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-
-      // Assuming the response contains an array of objects with prompt and score
-      setGeneratedPrompts(response.data);
+      await axios.post("http://localhost:5000/api/generate_prompts", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
     } catch (error) {
       console.error("Error generating prompts:", error);
     }
@@ -54,7 +47,6 @@ const App = () => {
     }
   };
 
-  // Use useEffect to fetch prompts when the component mounts
   useEffect(() => {
     fetchPrompts();
   }, []);
@@ -77,8 +69,8 @@ const App = () => {
                 variant="outlined"
                 fullWidth
                 label="Objective"
-                value={objective[0] || ""}
-                onChange={(e) => setObjective([e.target.value])}
+                value={objective || ""}
+                onChange={(e) => setObjective(e.target.value)}
               />
             </Grid>
             <Grid item xs={6}>
@@ -86,8 +78,8 @@ const App = () => {
                 variant="outlined"
                 fullWidth
                 label="Expected Output"
-                value={expectedOutputs[0] || ""}
-                onChange={(e) => setExpectedOutputs([e.target.value])}
+                value={expectedOutputs || ""}
+                onChange={(e) => setExpectedOutputs(e.target.value)}
               />
             </Grid>
             <Grid item xs={6}>
