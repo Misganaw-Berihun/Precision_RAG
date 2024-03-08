@@ -9,7 +9,7 @@ def file_reader(path: str) -> str:
 
 def json_parser(json_string: str):
     prompts_data = json.loads(json_string)
-    prompts = [item['prompt'] for item in prompts_data]
+    prompts = [item['prompt'] for item in prompts_data['prompts']]
     return prompts
 
 def main():
