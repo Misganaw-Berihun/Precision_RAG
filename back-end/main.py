@@ -24,16 +24,15 @@ def generate_prompts():
         expected_outputs = request.form.getlist('expectedOutputs') 
         temp_dir = tempfile.TemporaryDirectory()
 
-        # docs = []
-        # for file_key in request.files:
-        #     uploaded_file = request.files[file_key]
-        #     temp_filepath = os.path.join(temp_dir.name, uploaded_file.filename)
-        #     uploaded_file.save(temp_filepath)
-        #     docs.extend(load_document(temp_filepath))
-        # print(docs)
-        path = '../data'
+        docs = []
+        for file_key in request.files:
+            uploaded_file = request.files[file_key]
+            temp_filepath = os.path.join(temp_dir.name, uploaded_file.filename)
+            uploaded_file.save(temp_filepath)
+    
+        path = temp_dir.name
         docs = read_data(path)
-        print(objectives[0], expected_outputs[0])
+        print(docs)
         index = get_vector_index(docs)
         contexts = get_context_from_db(objectives[0], index)
         
