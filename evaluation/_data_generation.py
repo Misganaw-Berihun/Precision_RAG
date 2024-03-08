@@ -82,7 +82,7 @@ def generate_test_data(prompt: str, context: str, num_test_output: str) -> str:
     return system_msg
 
 
-def generate_prompts(prompt: str, context: str, objective: str, output: str) -> str:
+def generate_the_prompts(prompt: str, context: str, objective: str, output: str) -> str:
     """Return the classification of the hallucination.
     @parameter prompt: the prompt to be completed.
     @parameter user_message: the user message to be classified.
